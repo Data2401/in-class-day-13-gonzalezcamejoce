@@ -86,7 +86,7 @@ mean(hou_flights$time_gained, na.rm = T)
 sort(unique(my_flights$dest))
 glimpse(airports)
 
-my_flights %>% count(dest) %>% arrange(n)
+my_flights %>% count(dest) %>% arrange(-n)
 ```
 
   
@@ -96,15 +96,22 @@ my_flights %>% count(dest) %>% arrange(n)
 Go back to our flights exercise data. Consider flights from JFK to SEA. What was the average, min, and max air time of those flights? Use pipes to answer this question in one statement (without showing any other data)!
 
 ```{r}
-
-
+my_flights%>%
+  filter(origin == "JFK", dest == "SEA") %>%
+  na.omit() %>%
+  summarise(mean(air_time), min(air_time), max(air_time))
+  
 ```
 
 Consider flights coming into Houston (HOU and IAH). What is the mean arrival delay by departure airport? 
 
 ```{r}
+my_flights %>% filter(dest == "HOU", dest == "IAH")
 
-
+my_flights %>%
+  filter(dest %in% c("HOU", "IAH")) %>%
+  group_by(origin, dest) %>%
+  summarise(mean(arr_delay, na.rm = T))
 ```
 
 Getting ready for next class: Create a list of all the different values for the destination airport.
@@ -135,7 +142,7 @@ First, we filter by species to only see the humans, and use that subset to plot 
 humans <- starwars %>% filter(species == "Human")
 plot(humans$height, humans$mass)
 
-starwars %>% filter(species == "Human") %>% plot(mass ~ height, data = .)
+starwars %>% filter(species == "Human") %>% points(mass ~ height, data = .)
 
 ```
 
