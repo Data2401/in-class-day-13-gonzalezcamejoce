@@ -57,14 +57,14 @@ my_flights %>%
 5. Make a histogram of the amount of time gained using the `hist()` function
 
 ```{r}
-
+hist(my_flights$time_gained)
 ```
 
 
 6. On average, did flights gain or lose time? Note: use the `na.rm = TRUE` argument to remove NA values from your aggregation
 
 ```{r}
-
+mean(my_flights$time_gained, na.rm = T)
 
 ```
 
@@ -72,7 +72,8 @@ my_flights %>%
 7. Create a data.frame of flights with a destination of Hobby Airport (Airport code 'HOU'), only including the origin, destination, and the "made_up_time" column you just created
 
 ```{r}
-
+hou_flights <- filter(my_flights, dest == "HOU") %>% select(origin, dest, time_gained)
+hou_flights
 ```
 
 
