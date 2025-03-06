@@ -81,8 +81,12 @@ hou_flights
 
 
 ```{r}
+mean(hou_flights$time_gained, na.rm = T)
 
+sort(unique(my_flights$dest))
+glimpse(airports)
 
+my_flights %>% count(dest) %>% arrange(n)
 ```
 
   
